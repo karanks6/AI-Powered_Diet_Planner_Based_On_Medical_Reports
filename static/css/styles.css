@@ -1,0 +1,26 @@
+/* small color / spacing tweaks to complement Tailwind theme */
+html, body {
+  height: 100%;
+}
+
+/* card background override to a tinted pastel */
+.glass-card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.82), rgba(246,255,247,0.85));
+}
+
+/* input focus */
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  box-shadow: 0 6px 18px rgba(73,166,233,0.12);
+  border-color: rgba(73,166,233,0.6);
+}
+
+/* subtle scrollbar for the inner analyze card */
+.glass-card::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+.glass-card::-webkit-scrollbar-thumb {
+  background: rgba(15,23,42,0.08);
+  border-radius: 10px;
+}
