@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- PAGE WRAPPER WITH LIGHT BLUE BACKGROUND -->
+<div class="min-h-screen w-full bg-[#EAF6FF] py-10">
+
+  <section class="container mx-auto px-6">
+
+    <!-- TIGHT TWO-COLUMN LAYOUT -->
+    <div class="relative grid md:grid-cols-2 gap-0">
+
+      <!-- ======================
+           UPLOAD REPORT — TOP-RIGHT (SHIFTED LEFT)
+      ======================= -->
+      <div class="absolute top-0 right-10 md:right-20 w-full md:w-[360px] z-20" data-aos="fade-left">
+        <div class="glass-card p-6 rounded-2xl shadow-soft border border-slate-200 bg-white/70 backdrop-blur">
+          <h3 class="text-xl font-semibold text-slate-800">Upload Medical Report</h3>
+          <p class="muted text-sm mt-2">Accepted: PDF, JPG, PNG, TIFF (max 16MB)</p>
+
+          <form id="uploadForm" action="{{ url_for('index') }}" method="POST"
+                enctype="multipart/form-data" class="mt-4">
+            <label class="block text-sm font-medium text-slate-700">Select file</label>
+
+            <input
+              name="report_file"
+              id="reportFile"
+              accept=".pdf,.jpg,.jpeg,.png,.tiff"
+              type="file"
+              class="mt-2 w-full p-3 rounded-md border border-slate-200 bg-white/60"
+            />
+
+            <div class="mt-4">
+              <button type="submit" class="btn-primary px-4 py-2 rounded-lg shadow-md">
+                Upload & Analyze
+              </button>
+            </div>
+          </form>
+
+          <p class="text-xs muted mt-4">
+            Your data is stored only in this session. Nothing is uploaded externally.
+          </p>
+        </div>
+      </div>
+
+      <!-- ======================
+           LEFT HERO CONTENT — SHIFTED RIGHT
+      ======================= -->
+      <div class="space-y-6 mt-48 md:mt-0 pl-4 md:pl-32" data-aos="fade-right">
+        <h1 class="text-4xl md:text-5xl font-extrabold leading-tight text-slate-900 max-w-xl">
+          Personalized Indian Diet Plans — Based on Your Medical Report
+        </h1>
+
+        <p class="text-lg muted max-w-xl">
+          Upload your medical report and get a medically safe, region-specific diet plan tailored for
+          daily or weekly health recovery.
+        </p>
+
+        <!-- Removed Get Started Button -->
+
+        <div class="flex flex-wrap gap-3 mt-4">
+          <span class="px-3 py-1 bg-white/70 backdrop-blur rounded-full text-sm shadow-sm">PDF / Image OCR</span>
+          <span class="px-3 py-1 bg-white/70 backdrop-blur rounded-full text-sm shadow-sm">Medical NLP</span>
+          <span class="px-3 py-1 bg-white/70 backdrop-blur rounded-full text-sm shadow-sm">Nutrition Science</span>
+          <span class="px-3 py-1 bg-white/70 backdrop-blur rounded-full text-sm shadow-sm">Regional Foods</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ======================
+         WORKING FLASHCARDS (UNCHANGED)
+    ======================= -->
+    <div class="mt-20 grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+
+      <div data-aos="zoom-in" class="p-6 bg-white/80 backdrop-blur shadow-soft rounded-2xl border border-slate-200">
+        <div class="text-4xl mb-3">📄</div>
+        <h3 class="text-xl font-semibold text-slate-800 mb-2">1. Upload Report</h3>
+        <p class="text-sm text-slate-600">
+          Upload your medical report (PDF or image). The system extracts key medical values automatically.
+        </p>
+      </div>
+
+      <div data-aos="zoom-in" data-aos-delay="150"
+           class="p-6 bg-white/80 backdrop-blur shadow-soft rounded-2xl border border-slate-200">
+        <div class="text-4xl mb-3">🧠</div>
+        <h3 class="text-xl font-semibold text-slate-800 mb-2">2. Detect Conditions</h3>
+        <p class="text-sm text-slate-600">
+          Our medical NLP engine identifies conditions and necessary nutrition adjustments.
+        </p>
+      </div>
+
+      <div data-aos="zoom-in" data-aos-delay="300"
+           class="p-6 bg-white/80 backdrop-blur shadow-soft rounded-2xl border border-slate-200">
+        <div class="text-4xl mb-3">🥗</div>
+        <h3 class="text-xl font-semibold text-slate-800 mb-2">3. Generate Diet Plan</h3>
+        <p class="text-sm text-slate-600">
+          Instantly receive a personalized daily or weekly diet plan tailored for health recovery.
+        </p>
+      </div>
+
+    </div>
+  </section>
+</div>
+
+{% endblock %}
+    v23

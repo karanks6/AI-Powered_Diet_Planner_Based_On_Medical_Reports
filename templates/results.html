@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="min-h-screen bg-gradient-to-br from-surface via-surface-2 to-blue-50 py-12 px-6">
+  <div class="container mx-auto">
+
+    <!-- Page Header -->
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-extrabold text-indigo-700 drop-shadow-sm">
+        Your Personalized {{ plan_type|title }} Diet Plan
+      </h1>
+      <p class="text-neutral mt-2 text-lg">
+        Designed using your health condition, diet preference & regional taste
+      </p>
+    </div>
+
+    <!-- Profile Summary -->
+    <div class="max-w-5xl mx-auto glass-card p-6 border border-indigo-100">
+      <h2 class="text-2xl font-semibold text-indigo-700 mb-4 flex items-center gap-2">
+        <i class="bi bi-person-heart text-indigo-500"></i> Your Profile
+      </h2>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4 text-slate-700">
+        <p><strong>Age:</strong> {{ profile.age }}</p>
+        <p><strong>Gender:</strong> {{ profile.gender.title() }}</p>
+        <p><strong>BMI:</strong> {{ profile.bmi }}</p>
+        <p><strong>Region:</strong> {{ profile.regional_pref.replace("_"," ").title() }}</p>
+        <p><strong>Diet Pref:</strong> {{ profile.dietary_pref.replace("_"," ").title() }}</p>
+        <p><strong>Plan Type:</strong> {{ plan_type.title() }}</p>
+      </div>
+    </div>
+
+    <!-- Detected Conditions -->
+    {% if conditions %}
+    <div class="max-w-5xl mx-auto mt-8 glass-card p-6 border border-green-100">
+      <h2 class="text-2xl font-semibold text-green-600 mb-4 flex items-center gap-2">
+        <i class="bi bi-heart-pulse text-green-500"></i> Detected Health Conditions
+      </h2>
+
+      <div class="flex flex-wrap gap-3">
+        {% for cond in conditions %}
+        <span class="px-4 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium shadow-sm">
+          {{ cond }}
+        </span>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- Meal Plan Section -->
+    <div class="max-w-6xl mx-auto mt-14">
+      <h2 class="text-3xl font-semibold text-indigo-700 mb-8 text-center tracking-wide">
+        🥗 {{ plan_type.title() }} Meal Plan
+      </h2>
+
+      {% for day, meals in plan.items() %}
+      <div class="glass-card p-6 mb-10 border border-indigo-100 hover:shadow-soft-strong transition">
+        <h3 class="text-2xl font-bold text-indigo-600 mb-4">{{ day }}</h3>
+
+        <div class="grid md:grid-cols-3 sm:grid-cols-2 gap-6">
+          {% for meal in meals %}
+          <div class="p-4 bg-white/70 rounded-xl shadow-md border border-slate-200 hover:scale-[1.02] transition">
+            <h6 class="font-semibold text-indigo-700 text-lg mb-1 capitalize flex items-center gap-2">
+              <i class="bi bi-egg-fried text-yellow-500"></i> {{ meal.meal_time.replace("_"," ") }}
+            </h6>
+
+            <p class="text-slate-700 font-medium">{{ meal.dish }}</p>
+            <p class="text-slate-500 text-sm mb-2">{{ meal.serving }}</p>
+
+            <!-- Nutrition Details -->
+            <div class="text-sm text-slate-600 space-y-1">
+              <p>Calories: <strong>{{ meal.nutrition.calories }}</strong> kcal</p>
+              <p>Protein: <strong>{{ meal.nutrition.protein }}</strong> g</p>
+              <p>Carbs: <strong>{{ meal.nutrition.carbs }}</strong> g</p>
+              <p>Fat: <strong>{{ meal.nutrition.fat }}</strong> g</p>
+              <p>Fiber: <strong>{{ meal.nutrition.fiber }}</strong> g</p>
+            </div>
+
+            <!-- Tags -->
+            <div class="mt-3 flex flex-wrap gap-2">
+              {% for tag in meal.tags %}
+              <span class="px-2 py-1 bg-indigo-100 text-indigo-600 text-xs rounded-full font-semibold">
+                {{ tag }}
+              </span>
+              {% endfor %}
+            </div>
+
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Nutrition Chart -->
+    <div class="max-w-5xl mx-auto mt-12 glass-card p-6 border border-indigo-100">
+      <h2 class="text-2xl font-semibold text-indigo-700 mb-4 text-center">
+        📊 Nutrition Overview
+      </h2>
+      <canvas id="nutritionChart" height="120"></canvas>
+    </div>
+
+    <!-- Daily Nutrition Targets -->
+    <div class="max-w-4xl mx-auto mt-10 glass-card p-6 border border-blue-100">
+      <h3 class="text-2xl font-semibold text-blue-700 mb-4 text-center">
+        🎯 Daily Nutrition Targets
+      </h3>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center text-slate-700">
+        <p><strong>Calories:</strong> {{ nutrition.calories }}</p>
+        <p><strong>Protein:</strong> {{ nutrition.protein }}</p>
+        <p><strong>Carbs:</strong> {{ nutrition.carbs }}</p>
+        <p><strong>Fat:</strong> {{ nutrition.fat }}</p>
+      </div>
+    </div>
+
+    <!-- Download -->
+    <div class="text-center mt-12 mb-16">
+      <a href="{{ url_for('download_plan') }}"
+         class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-7 py-3 rounded-xl shadow-lg transition">
+        <i class="bi bi-file-earmark-arrow-down"></i> Download PDF Plan
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<!-- Chart.js -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const ctx = document.getElementById('nutritionChart').getContext('2d');
+  const nutrition = JSON.parse('{{ nutrition | tojson | safe }}');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Calories', 'Protein', 'Carbs', 'Fat'],
+      datasets: [{
+        data: [
+          nutrition.calories || 0,
+          nutrition.protein || 0,
+          nutrition.carbs || 0,
+          nutrition.fat || 0
+        ],
+        backgroundColor: [
+          'rgba(99,102,241,0.75)',  /* Indigo */
+          'rgba(34,197,94,0.75)',   /* Green */
+          'rgba(234,179,8,0.75)',   /* Yellow */
+          'rgba(239,68,68,0.75)'    /* Red */
+        ],
+        borderRadius: 12
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false } },
+      scales: { y: { beginAtZero: true } }
+    }
+  });
+});
+</script>
+
+{% endblock %}

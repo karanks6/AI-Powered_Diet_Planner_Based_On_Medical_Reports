@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="min-h-[70vh] flex items-center justify-center px-4">
+  <div class="w-full max-w-xl glass-card p-6 md:p-8" data-aos="zoom-in">
+    <h2 class="text-2xl font-semibold mb-3">Enter Personal & Lifestyle Details</h2>
+    <p class="muted text-sm mb-4">Provide basic info so we can create an age-appropriate, condition-safe meal plan.</p>
+
+    <form id="profileForm" action="{{ url_for('analyze_report') }}" method="POST" class="grid grid-cols-1 gap-3">
+      <div class="grid grid-cols-2 gap-3">
+        <input name="age" type="number" required placeholder="Age" class="p-3 rounded-md border border-slate-200" />
+        <select name="gender" required class="p-3 rounded-md border border-slate-200">
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3">
+        <input name="weight" type="number" step="0.1" placeholder="Weight (kg)" class="p-3 rounded-md border border-slate-200" required />
+        <input name="height" type="number" step="0.1" placeholder="Height (cm)" class="p-3 rounded-md border border-slate-200" required />
+      </div>
+
+      <div class="grid grid-cols-2 gap-3">
+        <select name="activity" class="p-3 rounded-md border border-slate-200">
+          <option value="sedentary">Sedentary</option>
+          <option value="light">Light</option>
+          <option value="moderate" selected>Moderate</option>
+          <option value="active">Active</option>
+          <option value="very_active">Very active</option>
+        </select>
+
+        <select name="dietary_pref" class="p-3 rounded-md border border-slate-200">
+          <option value="vegetarian">Vegetarian</option>
+          <option value="non_vegetarian">Non Vegetarian</option>
+          <option value="vegan">Vegan</option>
+          <option value="eggetarian">Eggetarian</option>
+          <option value="jain">Jain</option>
+        </select>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3">
+        <select name="regional_pref" class="p-3 rounded-md border border-slate-200">
+          <option value="north_indian">North</option>
+          <option value="south_indian">South</option>
+          <option value="east_indian">East</option>
+          <option value="west_indian">West</option>
+          <option value="mixed" selected>Mixed</option>
+        </select>
+
+        <select name="plan_type" class="p-3 rounded-md border border-slate-200">
+          <option value="daily">Daily</option>
+          <option value="weekly">Weekly</option>
+        </select>
+      </div>
+
+      <input name="allergies" type="text" placeholder="Known allergies (comma separated)" class="p-3 rounded-md border border-slate-200" />
+      <textarea name="notes" rows="2" placeholder="Additional medical notes (optional)" class="p-3 rounded-md border border-slate-200"></textarea>
+
+      <div class="flex justify-end gap-3 mt-3">
+        <a href="{{ url_for('index') }}" class="px-4 py-2 rounded-md border border-slate-200 muted">Back</a>
+        <button type="submit" class="btn-primary px-4 py-2 rounded-md">Analyze & Generate</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Prevent page scroll while keeping the analyze box centered on smaller screens
+  document.addEventListener('DOMContentLoaded', () => {
+    document.documentElement.style.overflow = 'auto';
+    // Make sure the form area doesn't grow beyond viewport height
+    const box = document.querySelector('.glass-card');
+    if (box) {
+      box.style.maxHeight = '85vh';
+      box.style.overflowY = 'auto';
+    }
+  });
+</script>
+
+{% endblock %}
