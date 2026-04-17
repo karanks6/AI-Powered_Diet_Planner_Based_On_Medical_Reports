@@ -1,0 +1,42 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #FFF8F3;
+  color: #2F2F2F;
+}
+
+.text-coral {
+  color: #FF7E5F;
+}
+
+.btn-coral {
+  background: linear-gradient(135deg, #FF7E5F, #FEB47B);
+  color: white;
+  border: none;
+  transition: all 0.3s ease;
+}
+.btn-coral:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(255,126,95,0.4);
+}
+
+.navbar {
+  background: rgba(255,255,255,0.8);
+  backdrop-filter: blur(12px);
+}
+
+.glass-card {
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(12px);
+  border-radius: 15px;
+}
+
+.hero-section {
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+footer {
+  background: #FFF0E5;
+  color: #6B5E52;
+}
