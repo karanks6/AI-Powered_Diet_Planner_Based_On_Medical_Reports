@@ -30,23 +30,18 @@ async def upload_report(file: UploadFile, allergies: str = Form("")):
     # 1. OCR
     text = extract_text(file_path)
 
-
     # 2. NLP
     labs = extract_lab_values(text)
 
-
     # 3. Detect conditions
     conditions = detect_conditions(labs)
-
 
     # 4. Recommend foods
     allergy_list = [a.strip().lower() for a in allergies.split(",") if a.strip()]
     candidates = recommend_foods(conditions, allergy_list)
 
-
     # 5. Optimize daily plan
     servings, summary = optimize_day_plan(candidates)
-
 
     return JSONResponse({
         "labs": labs,

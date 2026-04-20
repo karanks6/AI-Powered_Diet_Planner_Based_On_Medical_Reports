@@ -6,6 +6,7 @@ ACTIVITY_MULTIPLIERS = {
     "very_active": 1.9
 }
 
+
 def harris_benedict_bmr(sex, weight_kg, height_cm, age):
     if sex.lower().startswith("m"):
         return 88.362 + (13.397 * weight_kg) + (4.799 * height_cm) - (5.677 * age)
