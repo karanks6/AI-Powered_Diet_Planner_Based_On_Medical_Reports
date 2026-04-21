@@ -21,7 +21,6 @@ def filter_meals(food_db, diet_type, region, detected_conditions):
     Filters meals based on diet type, region, and therapeutic needs.
     Ensures medical compatibility and user preference relevance.
     """
-
     # ✅ Safe hierarchy for allowed diets
     diet_hierarchy = {
         "jain": ["jain"],
@@ -33,6 +32,7 @@ def filter_meals(food_db, diet_type, region, detected_conditions):
 
     allowed_diets = diet_hierarchy.get(diet_type.lower(), ["vegetarian"])
     meals = []
+
 
     # 🧩 Filter by diet, region, and therapeutic tags
     for meal in food_db:
@@ -109,7 +109,6 @@ def ensure_preference_meal(day_meals, food_db, user_pref):
           f"to include {primary_type} preference.")
     return day_meals
 
-
 def generate_plan(profile, detected_conditions, nutrition_targets):
     """
     Generates a personalized daily or weekly diet plan.
@@ -159,3 +158,4 @@ def generate_plan(profile, detected_conditions, nutrition_targets):
             plan[f"Day {day}"] = day_meals
 
     return plan
+
