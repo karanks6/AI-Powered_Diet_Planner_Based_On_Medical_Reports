@@ -158,4 +158,3 @@ def generate_plan(profile, detected_conditions, nutrition_targets):
             plan[f"Day {day}"] = day_meals
 
     return plan
-
