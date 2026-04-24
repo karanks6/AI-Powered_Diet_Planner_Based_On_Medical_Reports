@@ -14,6 +14,7 @@ def ocr_image(pil_image):
     text = pytesseract.image_to_string(pil_image, config='--oem 3 --psm 6')
     return text
 
+
 def ocr_pdf(path_to_pdf):
     images = convert_from_path(path_to_pdf, dpi=200, poppler_path=POPPLER_PATH)
     pages = []

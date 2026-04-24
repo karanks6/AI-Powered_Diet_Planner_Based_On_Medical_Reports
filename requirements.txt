@@ -8,3 +8,4 @@ pandas
 spacy
 reportlab
 python-dotenv
+
