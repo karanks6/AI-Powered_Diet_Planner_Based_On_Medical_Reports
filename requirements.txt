@@ -1,0 +1,10 @@
+Flask>=2.3
+pytesseract
+opencv-python
+pdf2image
+Pillow
+numpy
+pandas
+spacy
+reportlab
+python-dotenv
