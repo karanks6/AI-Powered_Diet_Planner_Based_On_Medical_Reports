@@ -77,7 +77,6 @@ def filter_meals(food_db, diet_type, region, detected_conditions):
     random.shuffle(meals)
     return meals
 
-
 def ensure_preference_meal(day_meals, food_db, user_pref):
     """
     Ensures at least one meal per day matches the user's main diet type.
