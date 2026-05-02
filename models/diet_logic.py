@@ -15,7 +15,6 @@ def load_food_database():
             print(f"[ERROR] JSON decode error in food database: {e}")
             return []
 
-
 def filter_meals(food_db, diet_type, region, detected_conditions):
     """
     Filters meals based on diet type, region, and therapeutic needs.
