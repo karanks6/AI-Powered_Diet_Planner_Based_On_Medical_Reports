@@ -32,7 +32,6 @@ def filter_meals(food_db, diet_type, region, detected_conditions):
     allowed_diets = diet_hierarchy.get(diet_type.lower(), ["vegetarian"])
     meals = []
 
-
     # 🧩 Filter by diet, region, and therapeutic tags
     for meal in food_db:
         meal_diet = meal.get("diet_type", "").lower()
