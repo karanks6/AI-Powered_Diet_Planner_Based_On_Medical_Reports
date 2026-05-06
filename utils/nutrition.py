@@ -114,4 +114,3 @@ def macro_split(calories, conditions=None, activity="moderate"):
             "fat_pct": round(macros["fat_pct"], 1)
         }
     }
-
