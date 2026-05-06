@@ -48,7 +48,6 @@ def index():
 
     return render_template("index.html")
 
-
 # ---------------------- ANALYZE REPORT ---------------------- #
 @app.route("/analyze_report", methods=["GET", "POST"])
 def analyze_report():
