@@ -1,4 +1,3 @@
-
 import os
 TESSERACT_CMD = os.getenv("TESSERACT_CMD", r"C:\Program Files\Tesseract-OCR\tesseract.exe")
 POPPLER_PATH = os.getenv("POPPLER_PATH", r"C:\Program Files\poppler-0.68.0\bin")
