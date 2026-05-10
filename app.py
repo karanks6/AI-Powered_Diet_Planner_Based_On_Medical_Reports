@@ -63,13 +63,11 @@ def analyze_report():
             "regional_pref": request.form.get("regional_pref"),
             "plan_type": request.form.get("plan_type"),  # daily or weekly
         }
-
         profile["bmi"] = round(profile["weight"] / ((profile["height"] / 100.0) ** 2), 1)
         session["profile"] = profile
         return redirect(url_for("generate_plan"))
 
     return render_template("analyze.html", struct=struct)
-
 
 # ---------------------- GENERATE DIET PLAN ---------------------- #
 @app.route("/generate_plan")
