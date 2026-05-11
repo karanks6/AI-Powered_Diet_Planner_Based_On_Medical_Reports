@@ -104,13 +104,11 @@ def generate_plan():
     }
 
     session["nutrition"] = nutrition_targets
-
     # Generate diet plan
     plan = generate_diet_plan(profile, nlp_result.get("conditions", {}), nutrition_targets)
     session["plan"] = plan
 
     return redirect(url_for("results"))
-
 
 # ---------------------- RESULTS PAGE ---------------------- #
 @app.route("/results")
