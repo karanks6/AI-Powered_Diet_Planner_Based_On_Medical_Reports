@@ -132,8 +132,6 @@ def results():
         conditions=condition_list,
         plan_type=profile.get("plan_type", "daily"),
     )
-
-
 # ---------------------- DOWNLOAD PLAN AS PDF ---------------------- #
 @app.route("/download_plan")
 def download_plan():
@@ -172,7 +170,6 @@ def download_plan():
 
     c.save()
     return send_file(path, as_attachment=True, download_name=filename)
-
 
 if __name__ == "__main__":
     app.run(debug=True)
