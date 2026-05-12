@@ -37,10 +37,8 @@ def analyze(structured_text):
         "anemia": 1.0 if "hemoglobin" in text or "anemia" in text else 0.0,
         "thyroid_disorder": 1.0 if "tsh" in text or "thyroid" in text else 0.0
     }
-
     # Confidence values (simple binary for now, can expand later)
     detected = {k: v for k, v in conditions.items() if v > 0}
-
     return {
         "conditions": conditions,
         "detected_conditions": detected,
